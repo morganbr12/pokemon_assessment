@@ -1,10 +1,18 @@
 part of 'home_bloc.dart';
 
-sealed class HomeState extends Equatable {
-  const HomeState();
+class HomeState extends Equatable {
+  const HomeState({this.homeData});
+
+  final Pokemon? homeData;
+
+  HomeState copyWith({
+    Pokemon? homeData,
+}) {
+    return HomeState(
+      homeData: homeData ?? this.homeData,
+    );
+  }
   
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [ ];
 }
-
-final class HomeInitial extends HomeState {}

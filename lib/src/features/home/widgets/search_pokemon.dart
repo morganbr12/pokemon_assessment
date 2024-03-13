@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:pokebook_app_assessment/src/core/routes/push_navigator.dart';
 import 'package:pokebook_app_assessment/src/core/shared/app_colors/app_colors.dart';
+
+import '../../../core/bloc_providers/pokemon_detail_provider.dart';
 
 class SearchPokeMon extends StatefulWidget {
   const SearchPokeMon({super.key});
@@ -25,7 +28,9 @@ class _SearchPokeMonState extends State<SearchPokeMon> {
         suffixIcon: Padding(
           padding: const EdgeInsets.only(right: 15),
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              pushNavigator(context, child: pokemonDetailProvider());
+            },
             child: const CircleAvatar(
               backgroundColor: AppColors.kPrimaryColor,
               child: Icon(Icons.search, color: AppColors.kWhiteColor),
