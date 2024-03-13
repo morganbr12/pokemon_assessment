@@ -1,7 +1,5 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AppColors {
   static const kPrimaryColor = Color.fromRGBO(232, 83, 130, 1);

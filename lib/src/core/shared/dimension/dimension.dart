@@ -6,4 +6,5 @@ class Dimension {
   static const k50DH = SizedBox(height: 50);
   static const k10DH = SizedBox(height: 10);
   static const k70DH = SizedBox(height: 70);
+  static const k100DH = SizedBox(height: 100);
 }

@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pokebook_app_assessment/src/constants/app_constants/app_constants.dart';
+import 'package:pokebook_app_assessment/src/core/providers/pokemon_detail_provider.dart';
 import 'package:pokebook_app_assessment/src/core/routes/push_navigator.dart';
 
 import '../../pokemon_list_view/ui/pokemon_list_view.dart';
@@ -14,7 +14,7 @@ class ViewAllButton extends StatelessWidget {
     return Column(
       children: [
         GestureDetector(
-          onTap: () => pushNavigator(context, child: const PokeMonListViewScreen()),
+          onTap: () => pushNavigator(context, child: pokemonDetailProvider()),
           child: Column(
             children: [
               Text(

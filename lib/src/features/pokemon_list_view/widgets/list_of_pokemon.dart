@@ -1,25 +1,30 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:pokebook_app_assessment/src/core/routes/push_navigator.dart';
+import 'package:pokebook_app_assessment/src/core/shared/app_colors/app_colors.dart';
 import 'package:pokebook_app_assessment/src/features/pokemon_list_view/widgets/show_pokemon_details.dart';
 
-import '../../../core/shared/app_colors/app_colors.dart';
-import '../../../core/shared/dimension/dimension.dart';
 import '../../../core/shared/image_constants/image_constant.dart';
 
-class ListOfPokeMon extends StatelessWidget {
-  const ListOfPokeMon({required this.controller, Key? key}) : super(key: key);
+class ListOfPokeMon extends StatefulWidget {
+  const ListOfPokeMon({required this.controller, super.key});
 
   final ScrollController controller;
 
+
+  @override
+  State<ListOfPokeMon> createState() => _ListOfPokeMonState();
+}
+
+class _ListOfPokeMonState extends State<ListOfPokeMon> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: 2,
-      controller: controller,
+      controller: widget.controller,
       shrinkWrap: true,
       itemBuilder: (context, i) => Column(
         children: [
@@ -93,10 +98,9 @@ class ListOfPokeMon extends StatelessWidget {
                   child: MouseRegion(
                     cursor: SystemMouseCursors.click,
                     child: InkWell(
-                      onTap: () => pushNavigator(
-                        context,
-                        child: const PokeMonDetailViewScreen(),
-                      ),
+                      onTap: () {
+                        viewPokeMonDetails(context);
+                      },
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.transparent,
