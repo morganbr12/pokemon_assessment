@@ -1,23 +1,26 @@
 import 'package:hive/hive.dart';
+import 'package:pokebook_app_assessment/src/core/repository/pokemon_list/pokemon_db_list.dart';
 import 'package:pokebook_app_assessment/src/core/repository/pokemon_model.dart';
 
 class PokeBookRepo {
   late Box<Pokemon> pokemonBox;
+  late Box<PokemonList> pokemonListBox;
 
-  // Gets already opened box and assign it to pokemonBox.
+  /// Gets already opened box and assign it to pokemonBox.
   PokeBookRepo() {
     pokemonBox = Hive.box("pokemonBox");
+    pokemonListBox = Hive.box("pokemonListBox");
   }
 
   /// Save a single pokemon in the box.
   void savePokemon(int key, Pokemon pokemon) => pokemonBox.put(key, pokemon);
 
   /// Save multiple pokemons in the box.
-  void saveMultiplePokemon(Map<int, Pokemon> pokemons) =>
-      pokemonBox.putAll(pokemons);
+  void saveMultiplePokemon(Map<int, PokemonList> pokemonLists) =>
+      pokemonListBox.putAll(pokemonLists);
 
   /// Returns all saved pokemons in the box.
-  List<Pokemon> getAllPokemons() => pokemonBox.values.toList();
+  List<PokemonList> getAllPokemons() => pokemonListBox.values.toList();
 
   /// Returns a single Pokemon object when called
   Pokemon? getPokemon(int key) => pokemonBox.get(key);
