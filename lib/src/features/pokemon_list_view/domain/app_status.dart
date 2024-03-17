@@ -6,4 +6,4 @@ class InitialAppStatus extends AppStatus {
   const InitialAppStatus();
 }
 
-class QrStatusUpdated extends AppStatus {}
+class AppStatusUpdated extends AppStatus {}

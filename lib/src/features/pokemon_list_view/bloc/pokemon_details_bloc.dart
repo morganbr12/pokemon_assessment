@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,25 +12,38 @@ part 'pokemon_details_state.dart';
 
 class PokemonDetailsBloc
     extends Bloc<PokemonDetailsEvent, PokemonDetailsState> {
-
   PokeBookRepo pokeBookRepo = PokeBookRepo();
 
   PokemonDetailsBloc() : super(const PokemonDetailsState()) {
     on<UpdateSelectedTab>(_onUpdateIsSelectedTab);
     on<UpdatePokemonListData>(_onUpdatePokemonList);
+    on<UpdatedSelectedTheme>(_onUpdatedTheme);
   }
 
   void _onUpdateIsSelectedTab(
       UpdateSelectedTab event, Emitter<PokemonDetailsState> emit) {
     try {
       emit(state.copyWith(
-          activeTab: event.selectedTab, appStatus: QrStatusUpdated()));
+          activeTab: event.selectedTab, appStatus: AppStatusUpdated()));
     } finally {
       emit(state.copyWith(appStatus: const InitialAppStatus()));
     }
   }
 
-  void _onUpdatePokemonList(UpdatePokemonListData event, Emitter<PokemonDetailsState> emit) {
+  void _onUpdatedTheme(
+      UpdatedSelectedTheme event, Emitter<PokemonDetailsState> emit) {
+    try {
+      emit(
+        state.copyWith(
+            activeTheme: event.selectedTheme, appStatus: AppStatusUpdated()),
+      );
+    } finally {
+      emit(state.copyWith(appStatus: const InitialAppStatus()));
+    }
+  }
+
+  void _onUpdatePokemonList(
+      UpdatePokemonListData event, Emitter<PokemonDetailsState> emit) {
     try {
       final pokemonList = pokeBookRepo.getAllPokemons();
 

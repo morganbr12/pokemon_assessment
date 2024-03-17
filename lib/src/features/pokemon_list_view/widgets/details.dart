@@ -1,10 +1,14 @@
 
 import 'package:flutter/material.dart';
+import 'package:pokebook_app_assessment/src/core/repository/pokemon_list/pokemon_db_list.dart';
 
 import '../../../core/shared/dimension/dimension.dart';
 
 class AboutDetails extends StatelessWidget {
-  const AboutDetails({super.key});
+  const AboutDetails({this.pokemon, super.key});
+
+
+  final PokemonList? pokemon;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +21,7 @@ class AboutDetails extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            'Height    1.0m',
+            'Height    ${pokemon?.about?.height}m',
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
               fontSize: 14,
               fontWeight: FontWeight.w300,
@@ -25,7 +29,7 @@ class AboutDetails extends StatelessWidget {
           ),
           Dimension.k10DH,
           Text(
-            'Weight    13.0kg',
+            'Weight    ${pokemon?.about?.weight}kg',
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
               fontSize: 14,
               fontWeight: FontWeight.w300,
@@ -33,7 +37,7 @@ class AboutDetails extends StatelessWidget {
           ),
           Dimension.k10DH,
           Text(
-            'Abilities  . overgrow',
+            'Abilities  . ${pokemon?.about?.abilities}',
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
               fontSize: 14,
               fontWeight: FontWeight.w300,

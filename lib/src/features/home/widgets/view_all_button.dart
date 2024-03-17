@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pokebook_app_assessment/src/constants/app_constants/app_constants.dart';
-import 'package:pokebook_app_assessment/src/features/pokemon_list_view/bloc/pokemon_details_bloc.dart';
-
-
+import 'package:pokebook_app_assessment/src/core/routes/push_navigator.dart';
+import 'package:pokebook_app_assessment/src/features/pokemon_list_view/ui/pokemon_list_view.dart';
 
 class ViewAllButton extends StatelessWidget {
   const ViewAllButton({super.key});
@@ -15,7 +13,7 @@ class ViewAllButton extends StatelessWidget {
       children: [
         GestureDetector(
           onTap: () {
-            context.read<PokemonDetailsBloc>().add(const UpdatePokemonListData());
+            pushNavigator(context, child: const PokeMonListViewScreen());
           },
           child: Column(
             children: [

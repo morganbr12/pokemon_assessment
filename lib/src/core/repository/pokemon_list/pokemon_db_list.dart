@@ -10,10 +10,18 @@ class PokemonList {
   @HiveField(1)
   String imagePath;
 
+  @HiveField(3)
+  List<Categories> categories;
+
   @HiveField(2)
   About? about;
 
-  PokemonList({required this.name, required this.imagePath, this.about});
+  PokemonList({
+    required this.name,
+    required this.imagePath,
+    required this.categories,
+    this.about,
+  });
 }
 
 @HiveType(typeId: 3)
@@ -28,4 +36,15 @@ class About {
   String abilities;
 
   About({required this.height, required this.weight, required this.abilities});
+}
+
+@HiveType(typeId: 4)
+class Categories {
+  @HiveField(0)
+  String icon;
+
+  @HiveField(1)
+  String title;
+
+  Categories({required this.icon, required this.title});
 }

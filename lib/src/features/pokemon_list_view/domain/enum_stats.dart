@@ -3,3 +3,9 @@ enum SelectedTab {
   stats,
   similar,
 }
+
+enum SelectedTheme {
+  primary,
+  secondary,
+  tertiary
+}

@@ -16,6 +16,15 @@ class UpdateSelectedTab extends PokemonDetailsEvent {
   List<Object> get props => [selectedTab];
 }
 
+class UpdatedSelectedTheme extends PokemonDetailsEvent {
+  final SelectedTheme selectedTheme;
+
+  const UpdatedSelectedTheme({required this.selectedTheme});
+
+  @override
+  List<Object> get props => [ selectedTheme ];
+}
+
 
 class UpdatePokemonListData extends PokemonDetailsEvent {
   const UpdatePokemonListData({this.pokemonList});

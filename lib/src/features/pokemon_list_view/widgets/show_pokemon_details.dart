@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:pokebook_app_assessment/src/core/repository/pokemon_list/pokemon_db_list.dart';
 import 'package:pokebook_app_assessment/src/core/shared/dimension/dimension.dart';
 import 'package:pokebook_app_assessment/src/features/pokemon_list_view/bloc/pokemon_details_bloc.dart';
 import 'package:pokebook_app_assessment/src/features/pokemon_list_view/domain/enum_stats.dart';
@@ -11,7 +12,7 @@ import 'package:pokebook_app_assessment/src/features/pokemon_list_view/widgets/d
 import '../../../core/shared/app_colors/app_colors.dart';
 import '../../../core/shared/image_constants/image_constant.dart';
 
-void viewPokeMonDetails(BuildContext context) {
+void viewPokeMonDetails(BuildContext context, {PokemonList? pokemon}) {
   showBottomSheet(
     context: context,
     builder: (context) {
@@ -67,7 +68,7 @@ void viewPokeMonDetails(BuildContext context) {
               ],
             ),
             Dimension.k70DH,
-            const Details(),
+             Details(pokemon: pokemon),
           ],
         ),
       );
@@ -76,14 +77,16 @@ void viewPokeMonDetails(BuildContext context) {
 }
 
 class Details extends StatelessWidget {
-  const Details({super.key});
+  const Details({required this.pokemon, super.key});
+
+  final PokemonList? pokemon;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         AutoSizeText(
-          'Ivysaur',
+          pokemon!.name,
           minFontSize: 46,
           maxFontSize: 60,
           style: Theme.of(context).textTheme.bodySmall!.copyWith(
@@ -93,29 +96,27 @@ class Details extends StatelessWidget {
         Dimension.k10DH,
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              margin: const EdgeInsets.only(right: 10),
-              padding: const EdgeInsets.only(
-                left: 15,
-                right: 15,
-                // top: 5,
-                // bottom: 5,
-              ),
-              decoration: BoxDecoration(
-                color: Colors.grey.withOpacity(0.2),
-                borderRadius: BorderRadius.circular(53),
-              ),
-              child: Center(
-                child: Text(
-                  'Grass',
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                        fontSize: 16,
-                      ),
+          children: pokemon!.categories.map((e) => Container(
+            margin: const EdgeInsets.only(right: 10),
+            padding: const EdgeInsets.only(
+              left: 15,
+              right: 15,
+              // top: 5,
+              // bottom: 5,
+            ),
+            decoration: BoxDecoration(
+              color: Colors.grey.withOpacity(0.2),
+              borderRadius: BorderRadius.circular(53),
+            ),
+            child: Center(
+              child: Text(
+                e.title,
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  fontSize: 16,
                 ),
               ),
-            )
-          ],
+            ),
+          ),).toList(),
         ),
         Dimension.k20DH,
         BlocSelector<PokemonDetailsBloc, PokemonDetailsState, SelectedTab>(
@@ -160,7 +161,7 @@ class Details extends StatelessWidget {
               case SelectedTab.similar:
                 return Container();
               default:
-                return const AboutDetails();
+                return AboutDetails(pokemon: pokemon);
             }
           },
         ),

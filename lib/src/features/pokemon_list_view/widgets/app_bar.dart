@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pokebook_app_assessment/src/core/shared/app_colors/app_colors.dart';
 import 'package:pokebook_app_assessment/src/core/shared/image_constants/image_constant.dart';
+
+import '../../../core/widgets/pokebook_logo.dart';
+import '../bloc/pokemon_details_bloc.dart';
+import '../domain/enum_stats.dart';
 
 class PokeMonAppBar extends StatelessWidget implements PreferredSizeWidget {
   const PokeMonAppBar({super.key});
@@ -29,11 +34,12 @@ class PokeMonAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
       ),
-      title: SizedBox(
+      title: const SizedBox(
         height: 25,
-        width: 90,
-        child: SvgPicture.asset(
-          ImageConstants.kPokeBook,
+        width: 900,
+        child: PokeBookLogo(
+          fontSize: 18,
+          mainAxisAlignment: MainAxisAlignment.start,
         ),
       ),
       actions: [
@@ -68,13 +74,16 @@ class PokeMonAppBar extends StatelessWidget implements PreferredSizeWidget {
                 actionsPadding: const EdgeInsets.only(top: 40, bottom: 40),
                 actions: const [
                   ChooseTheme(
-                    color: AppColors.kPrimaryColor,
+                    color: Color.fromRGBO(232, 83, 130, 1),
+                    selectedTheme: SelectedTheme.primary,
                   ),
                   ChooseTheme(
                     color: Colors.lightBlueAccent,
+                    selectedTheme: SelectedTheme.secondary,
                   ),
                   ChooseTheme(
                     color: Colors.amberAccent,
+                    selectedTheme: SelectedTheme.tertiary,
                   ),
                 ],
               ),
@@ -89,8 +98,8 @@ class PokeMonAppBar extends StatelessWidget implements PreferredSizeWidget {
               border: Border.all(color: Colors.grey, width: 1),
               color: Colors.white,
             ),
-            child: const CircleAvatar(
-              backgroundColor: AppColors.kPrimaryColor,
+            child: CircleAvatar(
+              backgroundColor: AppColors().kPrimaryColor,
             ),
           ),
         )
@@ -103,27 +112,45 @@ class PokeMonAppBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class ChooseTheme extends StatelessWidget {
-  const ChooseTheme({required this.color, super.key});
+  const ChooseTheme(
+      {required this.color, required this.selectedTheme, super.key});
 
   final Color? color;
+  final SelectedTheme selectedTheme;
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {},
-      borderRadius: BorderRadius.circular(100),
-      child: Container(
-        padding: const EdgeInsets.all(5),
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          border: Border.all(color: Colors.grey, width: 1),
-          color: Colors.white,
-        ),
-        child: CircleAvatar(
-          radius: 30,
-          backgroundColor: color,
-        ),
-      ),
+    return BlocSelector<PokemonDetailsBloc, PokemonDetailsState, SelectedTheme>(
+      selector: (state) {
+        return state.activeSelectedTheme;
+      },
+      builder: (context, themeState) {
+        return InkWell(
+          onTap: () {
+            context.read<PokemonDetailsBloc>().add(
+                  UpdatedSelectedTheme(
+                    selectedTheme: selectedTheme,
+                  ),
+                );
+          },
+          borderRadius: BorderRadius.circular(100),
+          child: Container(
+            padding:
+                themeState == selectedTheme ? const EdgeInsets.all(5) : null,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: themeState == selectedTheme
+                  ? Border.all(color: Colors.grey, width: 1)
+                  : null,
+              color: Colors.white,
+            ),
+            child: CircleAvatar(
+              radius: 30,
+              backgroundColor: color,
+            ),
+          ),
+        );
+      },
     );
   }
 }

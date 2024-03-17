@@ -8,6 +8,8 @@ import 'package:pokebook_app_assessment/src/core/repository/pokemon_list/pokemon
 import 'package:pokebook_app_assessment/src/core/repository/pokemon_model.dart';
 import 'package:pokebook_app_assessment/src/core/shared/theme/theme.dart';
 import 'package:pokebook_app_assessment/src/features/pokemon_list_view/bloc/pokemon_details_bloc.dart';
+import 'package:pokebook_app_assessment/src/features/pokemon_list_view/domain/json_pokmon_list.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   await _initializedHive();
@@ -29,26 +31,26 @@ Future<void> homeDB() async {
 /// Mapping multiple Pokemon list into the local pokemon db
 Future<void> saveMultiplePokemon() async {
   Map<int, PokemonList> pokemonList = {
-    0: PokemonList(
-        name: 'charizard',
-        imagePath: '',
-        about: About(height: '1.0', weight: '13.0', abilities: 'overgrow')),
-    1: PokemonList(
-        name: 'ivysaur',
-        imagePath: '',
-        about: About(height: '1.5', weight: '10.0', abilities: 'healthy')),
-    2: PokemonList(
-        name: 'raticate',
-        imagePath: '',
-        about: About(height: '0.5', weight: '14.0', abilities: 'Fined')),
-    3: PokemonList(
-        name: 'beedrill',
-        imagePath: '',
-        about: About(
-          height: '0.5',
-          weight: '7.0',
-          abilities: 'Insets',
-        )),
+    // 0: PokemonList(
+    //     name: 'charizard',
+    //     imagePath: '',
+    //     about: About(height: '1.0', weight: '13.0', abilities: 'overgrow')),
+    // 1: PokemonList(
+    //     name: 'ivysaur',
+    //     imagePath: '',
+    //     about: About(height: '1.5', weight: '10.0', abilities: 'healthy')),
+    // 2: PokemonList(
+    //     name: 'raticate',
+    //     imagePath: '',
+    //     about: About(height: '0.5', weight: '14.0', abilities: 'Fined')),
+    // 3: PokemonList(
+    //     name: 'beedrill',
+    //     imagePath: '',
+    //     about: About(
+    //       height: '0.5',
+    //       weight: '7.0',
+    //       abilities: 'Insets',
+    //     )),
   };
 
   PokeBookRepo().saveMultiplePokemon(pokemonList);
@@ -79,10 +81,17 @@ class MyApp extends StatelessWidget {
             create: (context) => PokemonDetailsBloc(),
           ),
         ],
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: AppThemeData.theme(),
-          home: homeProviderOutlet(),
+        child: MultiProvider(
+          providers: [
+            ChangeNotifierProvider<PokemonListJson>(
+              create: (context) => PokemonListJson(),
+            ),
+          ],
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: AppThemeData.theme(),
+            home: homeProviderOutlet(),
+          ),
         ),
       ),
     );
