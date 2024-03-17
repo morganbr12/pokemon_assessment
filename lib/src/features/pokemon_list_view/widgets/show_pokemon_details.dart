@@ -27,49 +27,61 @@ void viewPokeMonDetails(BuildContext context, {PokemonList? pokemon}) {
               alignment: const Alignment(0.2, 6),
               clipBehavior: Clip.none,
               children: [
-                Container(
-                  height: 283.h,
-                  width: 1.sw,
-                  decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(30),
-                        bottomRight: Radius.circular(30),
-                      ),
-                      gradient: LinearGradient(
-                        colors: [
-                          Color.fromRGBO(127, 202, 209, 1),
-                          Color.fromRGBO(61, 160, 169, 1),
-                        ],
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                      )),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 20.0, bottom: 120),
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          borderRadius: BorderRadius.circular(5),
-                          child: Container(
-                            height: 38.h,
-                            width: 38.w,
-                            decoration: BoxDecoration(
-                                color: AppColors.kWhiteColor,
-                                borderRadius: BorderRadius.circular(5)),
-                            child: const Icon(Icons.west_rounded),
+                BlocSelector<PokemonDetailsBloc, PokemonDetailsState,
+                    SelectedTheme>(
+                  selector: (state) {
+                    return state.activeSelectedTheme;
+                  },
+                  builder: (context, selectedTheme) {
+                    return Container(
+                      height: 283.h,
+                      width: 1.sw,
+                      decoration:  BoxDecoration(
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(30),
+                            bottomRight: Radius.circular(30),
                           ),
-                        ),
+                          gradient: LinearGradient(
+                            colors: [
+                              colorTheme(selectedTheme, op: 0.3),
+                              colorTheme(selectedTheme),
+                            ],
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                          )),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 20.0, bottom: 120),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.pop(context);
+                              },
+                              borderRadius: BorderRadius.circular(5),
+                              child: Container(
+                                height: 38.h,
+                                width: 38.w,
+                                decoration: BoxDecoration(
+                                    color: AppColors.kWhiteColor,
+                                    borderRadius: BorderRadius.circular(5)),
+                                child: const Icon(Icons.west_rounded),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
-                SizedBox(height: 260, width: 255, child: Image.asset(pokemon!.imagePath)),
+                SizedBox(
+                    height: 260,
+                    width: 255,
+                    child: Image.asset(pokemon!.imagePath)),
               ],
             ),
             Dimension.k70DH,
-             Details(pokemon: pokemon),
+            Details(pokemon: pokemon),
           ],
         ),
       );
@@ -97,27 +109,31 @@ class Details extends StatelessWidget {
         Dimension.k10DH,
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: pokemon!.categories.map((e) => Container(
-            margin: const EdgeInsets.only(right: 10),
-            padding: const EdgeInsets.only(
-              left: 15,
-              right: 15,
-              // top: 5,
-              // bottom: 5,
-            ),
-            decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(53),
-            ),
-            child: Center(
-              child: Text(
-                e.title,
-                style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  fontSize: 16,
+          children: pokemon!.categories
+              .map(
+                (e) => Container(
+                  margin: const EdgeInsets.only(right: 10),
+                  padding: const EdgeInsets.only(
+                    left: 15,
+                    right: 15,
+                    // top: 5,
+                    // bottom: 5,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(53),
+                  ),
+                  child: Center(
+                    child: Text(
+                      e.title,
+                      style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                            fontSize: 16,
+                          ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),).toList(),
+              )
+              .toList(),
         ),
         Dimension.k20DH,
         BlocSelector<PokemonDetailsBloc, PokemonDetailsState, SelectedTab>(

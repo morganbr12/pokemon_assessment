@@ -16,12 +16,12 @@ List<Color> themeColors = [
 ];
 
 
-Color colorTheme(SelectedTheme selectedTheme) {
+Color colorTheme(SelectedTheme selectedTheme, {double? op}) {
   if (selectedTheme == SelectedTheme.secondary) {
-    return themeColors[1];
+    return themeColors[1].withOpacity(op ?? 1);
   }
   if(selectedTheme == SelectedTheme.tertiary) {
-    return themeColors[2];
+    return themeColors[2].withOpacity(op ?? 1);
   }
-  return themeColors[0];
+  return themeColors[0].withOpacity(op ?? 1);
 }
