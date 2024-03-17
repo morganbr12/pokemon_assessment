@@ -40,21 +40,19 @@ class _ListOfPokeMonState extends State<ListOfPokeMon> {
             ),
           )
         : ListView.builder(
-            itemCount: currentPage * itemPerPage,
+            itemCount: currentPage * itemPerPage < pokemonList.length
+                ? currentPage * itemPerPage + 1
+                : pokemonList.length,
             controller: widget.controller,
             shrinkWrap: true,
             itemBuilder: (context, i) {
-              if (i == pokemonList.length) {
+              if (i == currentPage * itemPerPage) {
                 return ElevatedButton(
                   onPressed: () {
                     currentPage++;
                     setState(() {});
                   },
-                  child: Text(
-                    'Load More',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                );
+                  child: Text(((currentPage + 1)).toString()));
               } else {
                 final pokemon = pokemonList[i];
                 return Column(
