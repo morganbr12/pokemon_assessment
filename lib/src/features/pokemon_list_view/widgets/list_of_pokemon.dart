@@ -20,6 +20,9 @@ class ListOfPokeMon extends StatefulWidget {
 }
 
 class _ListOfPokeMonState extends State<ListOfPokeMon> {
+  int currentPage = 1;
+  int itemPerPage = 2;
+
   @override
   Widget build(BuildContext context) {
     final pokemonList =
@@ -37,99 +40,125 @@ class _ListOfPokeMonState extends State<ListOfPokeMon> {
             ),
           )
         : ListView.builder(
-            itemCount: pokemonList.length,
+            itemCount: currentPage * itemPerPage,
             controller: widget.controller,
             shrinkWrap: true,
             itemBuilder: (context, i) {
-              final pokemon = pokemonList[i];
-              return Column(
-                children: [
-                  const SizedBox(height: 70),
-                  Stack(
-                    clipBehavior: Clip.none,
-                    alignment: const Alignment(0.2, -3),
-                    children: [
-                      MouseRegion(
-                        cursor: SystemMouseCursors.click,
-                        child: Card(
-                          color: Colors.white,
-                          child: Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Container(
-                                  height: 170,
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey.withOpacity(0.3),
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                ),
-                                const SizedBox(height: 20),
-                                AutoSizeText(
-                                  pokemon.name,
-                                  minFontSize: 25,
-                                  maxFontSize: 32,
-                                  style: Theme.of(context).textTheme.bodySmall,
-                                ),
-                                const SizedBox(height: 20),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: pokemon.categories.isEmpty ? [] : pokemon.categories.map((e) => Container(
-                                    margin: const EdgeInsets.only(right: 10),
-                                    padding: const EdgeInsets.only(
-                                      left: 15,
-                                      right: 15,
-                                      top: 10,
-                                      bottom: 10,
-                                    ),
+              if (i == pokemonList.length) {
+                return ElevatedButton(
+                  onPressed: () {
+                    currentPage++;
+                    setState(() {});
+                  },
+                  child: Text(
+                    'Load More',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                );
+              } else {
+                final pokemon = pokemonList[i];
+                return Column(
+                  children: [
+                    const SizedBox(height: 70),
+                    Stack(
+                      clipBehavior: Clip.none,
+                      alignment: const Alignment(0.2, -3),
+                      children: [
+                        MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: Card(
+                            color: Colors.white,
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Container(
+                                    height: 170,
                                     decoration: BoxDecoration(
-                                      color:
-                                      Colors.grey.withOpacity(0.2), // Change to your color
-                                      borderRadius: BorderRadius.circular(53),
+                                      color: Colors.grey.withOpacity(0.3),
+                                      borderRadius: BorderRadius.circular(20),
                                     ),
-                                    child: Center(
-                                      child: Text(
-                                        e.title,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(
-                                          fontSize: 18,
-                                        ),
-                                      ),
-                                    ),
-                                  ),).toList(),
-                                ),
-                              ],
+                                  ),
+                                  const SizedBox(height: 20),
+                                  AutoSizeText(
+                                    pokemon.name,
+                                    minFontSize: 25,
+                                    maxFontSize: 32,
+                                    style:
+                                        Theme.of(context).textTheme.bodySmall,
+                                  ),
+                                  const SizedBox(height: 20),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: pokemon.categories.isEmpty
+                                        ? []
+                                        : pokemon.categories
+                                            .map(
+                                              (e) => Container(
+                                                margin: const EdgeInsets.only(
+                                                    right: 10),
+                                                padding: const EdgeInsets.only(
+                                                  left: 15,
+                                                  right: 15,
+                                                  top: 10,
+                                                  bottom: 10,
+                                                ),
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey
+                                                      .withOpacity(0.2),
+                                                  // Change to your color
+                                                  borderRadius:
+                                                      BorderRadius.circular(53),
+                                                ),
+                                                child: Center(
+                                                  child: Text(
+                                                    e.title,
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .bodySmall!
+                                                        .copyWith(
+                                                          fontSize: 18,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ),
+                                            )
+                                            .toList(),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: 251, width: 257, child: Image.asset(pokemon.imagePath)),
-                      Positioned.fill(
-                        child: Tooltip(
-                          message: 'View',
-                          child: MouseRegion(
-                            cursor: SystemMouseCursors.click,
-                            child: InkWell(
-                              onTap: () {
-                                viewPokeMonDetails(context, pokemon: pokemon);
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Colors.transparent,
-                                  borderRadius: BorderRadius.circular(20),
+                        SizedBox(
+                            height: 251,
+                            width: 257,
+                            child: Image.asset(pokemon.imagePath)),
+                        Positioned.fill(
+                          child: Tooltip(
+                            message: 'View',
+                            child: MouseRegion(
+                              cursor: SystemMouseCursors.click,
+                              child: InkWell(
+                                onTap: () {
+                                  viewPokeMonDetails(context, pokemon: pokemon);
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
-              );
+                      ],
+                    ),
+                  ],
+                );
+              }
             },
           );
   }
