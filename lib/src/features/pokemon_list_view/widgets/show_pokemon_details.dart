@@ -1,9 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:pokebook_app_assessment/src/core/repository/pokemon_list/pokemon_db_list.dart';
 import 'package:pokebook_app_assessment/src/core/shared/dimension/dimension.dart';
 import 'package:pokebook_app_assessment/src/features/pokemon_list_view/bloc/pokemon_details_bloc.dart';
@@ -11,7 +9,6 @@ import 'package:pokebook_app_assessment/src/features/pokemon_list_view/domain/en
 import 'package:pokebook_app_assessment/src/features/pokemon_list_view/widgets/details.dart';
 
 import '../../../core/shared/app_colors/app_colors.dart';
-import '../../../core/shared/image_constants/image_constant.dart';
 
 void viewPokeMonDetails(BuildContext context, {PokemonList? pokemon}) {
   showBottomSheet(
