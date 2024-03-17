@@ -47,7 +47,7 @@ class _ListOfPokeMonState extends State<ListOfPokeMon> {
                   const SizedBox(height: 70),
                   Stack(
                     clipBehavior: Clip.none,
-                    alignment: const Alignment(0.2, -2),
+                    alignment: const Alignment(0.2, -3),
                     children: [
                       MouseRegion(
                         cursor: SystemMouseCursors.click,
@@ -61,7 +61,7 @@ class _ListOfPokeMonState extends State<ListOfPokeMon> {
                                 Container(
                                   height: 170,
                                   decoration: BoxDecoration(
-                                    color: Colors.grey,
+                                    color: Colors.grey.withOpacity(0.3),
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                 ),
@@ -85,7 +85,7 @@ class _ListOfPokeMonState extends State<ListOfPokeMon> {
                                     ),
                                     decoration: BoxDecoration(
                                       color:
-                                      Colors.grey, // Change to your color
+                                      Colors.grey.withOpacity(0.2), // Change to your color
                                       borderRadius: BorderRadius.circular(53),
                                     ),
                                     child: Center(
@@ -106,7 +106,7 @@ class _ListOfPokeMonState extends State<ListOfPokeMon> {
                           ),
                         ),
                       ),
-                      SvgPicture.asset(ImageConstants.kPokeBookLogo),
+                      SizedBox(height: 251, width: 257, child: Image.asset(pokemon.imagePath)),
                       Positioned.fill(
                         child: Tooltip(
                           message: 'View',

@@ -1,7 +1,9 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:pokebook_app_assessment/src/core/bloc_providers/pokemon_detail_provider.dart';
 import 'package:pokebook_app_assessment/src/core/repository/pokebook_repo.dart';
 import 'package:pokebook_app_assessment/src/core/repository/pokemon_list/pokemon_db_list.dart';
@@ -12,6 +14,12 @@ import 'package:pokebook_app_assessment/src/features/pokemon_list_view/domain/js
 import 'package:provider/provider.dart';
 
 void main() async {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // HydratedBloc.storage = await HydratedStorage.build(
+  //   storageDirectory: kIsWeb
+  //       ? HydratedStorage.webStorageDirectory
+  //       : await getApplicationDocumentsDirectory(),
+  // );
   await _initializedHive();
   await homeDB();
   runApp(const MyApp());

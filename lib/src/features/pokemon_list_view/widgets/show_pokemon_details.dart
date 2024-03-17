@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -23,7 +24,7 @@ void viewPokeMonDetails(BuildContext context, {PokemonList? pokemon}) {
         child: Column(
           children: [
             Stack(
-              alignment: const Alignment(0.2, 2.5),
+              alignment: const Alignment(0.2, 6),
               clipBehavior: Clip.none,
               children: [
                 Container(
@@ -64,7 +65,7 @@ void viewPokeMonDetails(BuildContext context, {PokemonList? pokemon}) {
                     ],
                   ),
                 ),
-                SvgPicture.asset(ImageConstants.kPokeBookLogo),
+                SizedBox(height: 260, width: 255, child: Image.asset(pokemon!.imagePath)),
               ],
             ),
             Dimension.k70DH,

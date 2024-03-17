@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:pokebook_app_assessment/src/core/shared/image_constants/image_constant.dart';
 
 import '../../../core/repository/pokemon_list/pokemon_db_list.dart';
 
@@ -6,10 +7,10 @@ class PokemonListJson extends ChangeNotifier {
   final List<PokemonList> _pokemonList = [
     PokemonList(
       name: 'charizard',
-      imagePath: '',
+      imagePath: ImageConstants.kCharizard,
       categories: [
-        Categories(icon: '', title: 'fire'),
-        Categories(icon: '', title: 'fly'),
+        Categories(icon: '', title: '🔥 Fire'),
+        Categories(icon: '', title: '🦋 Flying'),
       ],
       about: About(
         height: '1.0',
@@ -19,10 +20,10 @@ class PokemonListJson extends ChangeNotifier {
     ),
     PokemonList(
       name: 'ivysaur',
-      imagePath: '',
+      imagePath: ImageConstants.kIvysaur,
       categories: [
-        Categories(icon: '', title: 'fire'),
-        Categories(icon: '', title: 'fly'),
+        Categories(icon: '', title: '🌿 Grass'),
+        Categories(icon: '', title: '☠ Poison'),
       ],
       about: About(
         height: '1.5',
@@ -32,10 +33,9 @@ class PokemonListJson extends ChangeNotifier {
     ),
     PokemonList(
       name: 'raticate',
-      imagePath: '',
+      imagePath: ImageConstants.kRaticate,
       categories: [
-        Categories(icon: '', title: 'fire'),
-        Categories(icon: '', title: 'fly'),
+        Categories(icon: '', title: '🐻 Normal'),
       ],
       about: About(
         height: '0.5',
@@ -45,10 +45,10 @@ class PokemonListJson extends ChangeNotifier {
     ),
     PokemonList(
         name: 'beedrill',
-        imagePath: '',
+        imagePath: ImageConstants.kBreedrill,
         categories: [
-          Categories(icon: '', title: 'fire'),
-          Categories(icon: '', title: 'fly'),
+          Categories(icon: '', title: '🐞 Bug'),
+          Categories(icon: '', title: '☠ Poison'),
         ],
         about: About(
           height: '0.5',
